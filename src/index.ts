@@ -19,8 +19,8 @@ export async function createHttpsDomainProxy(optionsRaw: Options){
   const configs = await initConfigs(options);
   const servers = await initGreenlock({
     maintainerEmail: configs.proxyConfig.maintainerEmail,
-    greenlocklDir: options.greenlockDir,
-    packagerDir: options.packageDir
+    greenlockDir: options.greenlockDir,
+    packageDir: options.packageDir
   });
   const proxyServer = setupProxy({
     servers: servers,
