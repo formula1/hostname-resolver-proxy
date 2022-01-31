@@ -36,6 +36,7 @@ export async function initConfigs(
   }
 
   return {
+    allowedConfig: configJSON,
     proxyConfig,
     greenlockConfig
   }
