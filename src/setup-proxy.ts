@@ -1,12 +1,18 @@
 import { IncomingMessage, ServerResponse } from "http";
 import { createProxyServer } from "http-proxy";
-import { TypeInitRet } from "./init";
+import { Servers as GreenlockServers } from "greenlock-express";
+import { ProxyConfig } from "domain-config-formatter";
 import { resolveTarget } from "./resolve-target";
+
+type SetupProxyArg = {
+  servers: GreenlockServers,
+  proxyConfig: ProxyConfig
+}
 
 export function setupProxy({
   servers,
   proxyConfig,
-}: TypeInitRet){
+}: SetupProxyArg){
   // we need the raw https server
   var server = servers.httpsServer({});
   var proxy = createProxyServer({ xfwd: true });
