@@ -13,7 +13,7 @@ export type TypeInitGreenlockArg = {
 }
 
 export async function initGreenlock(
-  { maintainerEmail, greenlockDir, packageDir }: TypeInitArg
+  { maintainerEmail, greenlockDir, packageDir }: TypeInitGreenlockArg
 ): Promise<GreenlockServers>{
   return await new Promise((res)=>{
     greenlockInit({
