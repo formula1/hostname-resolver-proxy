@@ -63,3 +63,7 @@ buck-out/
 # Hidden
 **/hidden.*
 **/hidden*
+
+
+# Dist should only be on the compiled branch
+/dist
