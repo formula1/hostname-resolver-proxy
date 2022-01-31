@@ -1,5 +1,4 @@
 
-
 import { resolve as pathResolve } from "path";
 import { networkInterfaces } from "os";
 import {
@@ -11,7 +10,6 @@ import {
 import {
   formatJsonToGreenlock,
   formatJsonToProxy,
-  ProxyConfig
 } from "domain-config-formatter"
 import { GreenlockConfig } from "domain-config-formatter/src/types/greenlock";
 import { deepEqual } from "./util/json";
@@ -22,14 +20,9 @@ export type TypeInitArg = {
   greenlockDir: string,
 }
 
-export type TypeInitRet = {
-  proxyConfig: ProxyConfig,
-  greenlockConfig: GreenlockConfig
-}
-
 export async function initConfigs(
   { configPath, greenlockDir }: TypeInitArg
-): Promise<TypeInitRet>{
+){
   const configJSON = JSON.parse(await readFile(configPath, "utf-8"));
   const greenlockConfig = formatJsonToGreenlock(configJSON);
   const proxyConfig = formatJsonToProxy(configJSON);
