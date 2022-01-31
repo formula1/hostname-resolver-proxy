@@ -1,10 +1,9 @@
 
 
-import { init as greenlockInit, Servers as GreenlockServers } from "greenlock-express";
 import {
-  ProxyConfig
-} from "domain-config-formatter"
-import { GreenlockConfig } from "domain-config-formatter/src/types/greenlock";
+  init as greenlockInit,
+  Servers as GreenlockServers
+} from "greenlock-express";
 
 export type TypeInitGreenlockArg = {
   maintainerEmail: string,
