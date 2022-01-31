@@ -1,0 +1,23 @@
+{
+  "name": "https-proxy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@root/greenlock": "^4.0.5",
+    "commander": "^9.0.0",
+    "domain-config-formatter": "github:formula1/domain-config-formatter",
+    "greenlock-express": "^4.0.3",
+    "http-proxy": "^1.18.1"
+  },
+  "devDependencies": {
+    "@types/commander": "^2.12.2",
+    "@types/http-proxy": "^1.17.8",
+    "@types/node": "^17.0.13"
+  }
+}
