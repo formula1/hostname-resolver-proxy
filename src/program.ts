@@ -6,12 +6,13 @@ import { hasParent } from "./util/module";
 export class HttpsDomainProxyCommand extends Command {
   constructor(){
     super();
-    this.requiredOption(
+    this.option(
       "-c, --config-path <configPath>",
       [
         "The location of your config file.",
         "Resolves relative to the current working direrctory"
-      ].join(" ")
+      ].join(" "),
+      "./sites.config"
     ).option(
       "-g, --greenlock-dir <greenlockDirectory>",
       [
