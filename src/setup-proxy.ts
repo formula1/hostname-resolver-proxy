@@ -52,4 +52,6 @@ export function setupProxy({
       res.end();
     });
   });
+
+  return proxy;
 }
