@@ -13,7 +13,8 @@
     "commander": "^9.0.0",
     "domain-config-formatter": "github:formula1/domain-config-formatter",
     "greenlock-express": "^4.0.3",
-    "http-proxy": "^1.18.1"
+    "http-proxy": "^1.18.1",
+    "moment": "^2.29.1"
   },
   "devDependencies": {
     "@types/commander": "^2.12.2",
