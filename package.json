@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev-start": "ts-node --files src/program"
   },
   "author": "",
   "license": "ISC",
@@ -19,6 +20,7 @@
   "devDependencies": {
     "@types/commander": "^2.12.2",
     "@types/http-proxy": "^1.17.8",
-    "@types/node": "^17.0.13"
+    "@types/node": "^17.0.13",
+    "ts-node": "^10.4.0"
   }
 }
