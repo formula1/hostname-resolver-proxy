@@ -1,21 +1,19 @@
-import { IncomingMessage, ServerResponse } from "http";
+import { Server } from "http";
 import { createProxyServer } from "http-proxy";
-import { Servers as GreenlockServers } from "greenlock-express";
-import { ProxyConfig } from "domain-config-formatter";
+import { HostnamePart } from "../types/ProxyConfig";
 import { resolveTarget } from "./resolve-target";
 
 type SetupProxyArg = {
-  servers: GreenlockServers,
-  proxyConfig: ProxyConfig
+  server: Server,
+  proxyConfig: HostnamePart
 }
 
 export function setupProxy({
-  servers,
+  server,
   proxyConfig,
 }: SetupProxyArg){
   // we need the raw https server
-  var server = servers.httpsServer({});
-  var proxy = createProxyServer({ xfwd: true });
+  const proxy = createProxyServer({ xfwd: true });
 
   // catches error events during proxying
   proxy.on("error", function(err) {
@@ -25,7 +23,7 @@ export function setupProxy({
 
   // We'll proxy websockets too
   server.on("upgrade", function(req, socket, head) {
-    const target = resolveTarget(req.headers.host, proxyConfig);
+    const target = resolveTarget(proxyConfig, req.headers.host);
     if(!target){
       return socket.end(()=>{
         socket.destroy();
@@ -37,9 +35,8 @@ export function setupProxy({
     });
   });
 
-  // servers a node app that proxies requests to a localhost
-  servers.serveApp(function(req: IncomingMessage, res: ServerResponse) {
-    const target = resolveTarget(req.headers.host, proxyConfig);
+  server.on("request", function(req, res){
+    const target = resolveTarget(proxyConfig, req.headers.host);
     if(!target){
       res.statusCode = 403;
       return res.end();
@@ -51,7 +48,7 @@ export function setupProxy({
       res.statusCode = 500;
       res.end();
     });
-  });
+  })
 
   return proxy;
 }

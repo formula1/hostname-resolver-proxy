@@ -4,8 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev-start": "ts-node --files src/program"
+    "dev-watch": "chokidar \"src/**/*.ts\" -c \"npm run dev-restart\" --initial",
+    "dev-restart": "npm run dev-kill; npm run dev-start;",
+    "dev-kill": "pkill -f ./src/program.ts",
+    "dev-start": "ts-node --files src/program",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
@@ -21,6 +24,7 @@
     "@types/commander": "^2.12.2",
     "@types/http-proxy": "^1.17.8",
     "@types/node": "^17.0.13",
+    "chokidar-cli": "^3.0.0",
     "ts-node": "^10.4.0"
   }
 }

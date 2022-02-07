@@ -1,6 +1,6 @@
 
 import { Command } from "commander";
-import { createHttpsDomainProxy, Options } from "./index";
+import { createHttpDomainProxy } from "./index";
 import { hasParent } from "./util/module";
 
 export class HttpsDomainProxyCommand extends Command {
@@ -39,8 +39,8 @@ export class HttpsDomainProxyCommand extends Command {
         "make changes to the server or simply just restart the server",
         "Probably not a good idea to restartt the server though"
       ].join(" ")
-    ).action((options: Options)=>{
-      createHttpsDomainProxy(options)
+    ).action((options: any)=>{
+      createHttpDomainProxy()
     });
   }
 }

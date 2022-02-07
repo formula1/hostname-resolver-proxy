@@ -1,35 +1,69 @@
 
-import { initConfigs } from "./init-configs";
-import { initGreenlock } from "./init-greenlock";
-import { setupProxy } from "./setup-proxy";
-import { resolve as pathResolve } from "path";
-import { copy as copyJSON } from "./util/json";
+import { setupProxy } from "./base/setup-proxy";
+import { Server } from "http";
+import { HostnamePart } from "./types/ProxyConfig";
 
-export type Options = {
-  configPath: string,
-  greenlockDir: string,
-  packageDir: string,
+
+export async function createHttpDomainProxy(){
+  const config: HostnamePart = getConfig();
+  const server = new Server();
+  const proxyServer = setupProxy({
+    server: server,
+    proxyConfig: config
+  })
+  const port = process.env.HTTP_PORT || 80;
+  server.listen(port, ()=>{
+    console.log("listening on :", port)
+  });
 }
 
-export async function createHttpsDomainProxy(optionsRaw: Options){
-  const options = copyJSON(optionsRaw);
-  options.packageDir = pathResolve(process.cwd(), options.packageDir);
-  options.configPath = pathResolve(process.cwd(), options.configPath);
-  options.greenlockDir = pathResolve(process.cwd(), options.greenlockDir);
-  const configs = await initConfigs(options);
-  const servers = await initGreenlock({
-    maintainerEmail: configs.proxyConfig.maintainerEmail,
-    greenlockDir: options.greenlockDir,
-    packageDir: options.packageDir
-  });
-  const proxyServer = setupProxy({
-    servers: servers,
-    proxyConfig: configs.proxyConfig
-  })
+function getConfig(){
+  switch(process.env.NODE_ENV){
+    case "prod": return getProdConfig();
+    case "dev": return getDevConfig();
+    default: {
+      throw new Error("invalid $NODE_ENV " + process.env.NODE_ENV);
+    }
+  }
+
+}
+
+
+
+function getProdConfig(){
   return {
-    paths: options,
-    greenlockServers: servers,
-    proxyServer: proxyServer,
-    configs: configs,
+    sites: {
+      app: {
+        sites: {
+          cleanupfun: {
+            target: { hostname: "production-entry", port: 80 },
+            sites: {
+              staging: {
+                target: { hostname: "staging-entry", port: 80 },
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+function getDevConfig(){
+  return {
+    sites: {
+      test: {
+        sites: {
+          localhost: {
+            target: { hostname: "production-entry", port: 80 },
+            sites: {
+              staging: {
+                target: { hostname: "staging-entry", port: 80 },
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
