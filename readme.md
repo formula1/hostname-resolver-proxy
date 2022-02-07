@@ -1,4 +1,10 @@
-# Https Domain Server
+# Hostname Resolver Proxy Server
+
+At the moment I'm rewriting the types and config so this isn't in a working state
+But the general idea is you write a hostname config and this compiles it.
+From there, this proxy server will allow multiple websites to hit this server and
+the server will direct the traffic to the specifed location.
+
 
 - takes
   - Config file path - required
