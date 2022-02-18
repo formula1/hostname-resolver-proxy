@@ -4,7 +4,7 @@ import { Server } from "http";
 import { HostnamePart } from "./types/ProxyConfig";
 
 
-export async function createHttpDomainProxy(){
+export async function createHostnameResolverProxyServer(){
   const config: HostnamePart = getConfig();
   const server = new Server();
   const proxyServer = setupProxy({

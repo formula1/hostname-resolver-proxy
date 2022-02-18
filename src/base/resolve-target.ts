@@ -41,13 +41,13 @@ export function resolveTarget(
       if(WILD_CARD_FULL in currentSites){
         throw {
           type: DIRECT_URL_AND_REST,
-          target: makeResolveMap(currentSites[WILD_CARD_FULL], currentMap)
+          target: foundMap.target ? foundMap.target : currentMap.target
         }
       }
       throw "Host not found"
     }, topMap);
     if(foundMap.target) return foundMap.target;
-    if(foundMap.defaultTarget) return foundMap.defaultTarget;
+    if(foundMap.target404) return foundMap.target404;
     throw "Host found but no target available";
   }catch(oE){
     if(typeof oE !== "object") throw oE;
@@ -61,7 +61,7 @@ export function resolveTarget(
     return {
       sites: foundMap.sites,
       target: foundMap.target ? foundMap.target : oldMap.target,
-      defaultTarget: foundMap.defaultTarget ? foundMap.defaultTarget : oldMap.target
+      target404: foundMap.target404 ? foundMap.target404 : oldMap.target
     }
   }
 }
