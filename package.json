@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "typings": "./src/index.ts",
   "scripts": {
     "dev-watch": "ts-node-dev --poll --transpile-only --ignore-watch node_modules --files src/program.ts",
     "old-dev-watch": "chokidar \"src/**/*.ts\" -c \"npm run dev-restart\" --initial",
