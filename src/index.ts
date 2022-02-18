@@ -36,11 +36,19 @@ function getProdConfig(){
       app: {
         sites: {
           cleanupfun: {
-            target: { hostname: "production-entry", port: 80 },
+            target: { hostname: "production-static", port: 80 },
             sites: {
+              api: {
+                target: { hostname: "production-api", port: 80 },
+              },
               staging: {
-                target: { hostname: "staging-entry", port: 80 },
-              }
+                target: { hostname: "staging-static", port: 80 },
+                sites: {
+                  api: {
+                    target: { hostname: "staging-api", port: 80 },
+                  }
+                }
+              },
             }
           }
         }
@@ -55,11 +63,19 @@ function getDevConfig(){
       test: {
         sites: {
           localhost: {
-            target: { hostname: "production-entry", port: 80 },
+            target: { hostname: "production-static", port: 80 },
             sites: {
+              api: {
+                target: { hostname: "production-api", port: 80 },
+              },
               staging: {
-                target: { hostname: "staging-entry", port: 80 },
-              }
+                target: { hostname: "staging-static", port: 80 },
+                sites: {
+                  api: {
+                    target: { hostname: "staging-api", port: 80 },
+                  }
+                }
+              },
             }
           }
         }
