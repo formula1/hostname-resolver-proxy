@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev-watch": "chokidar \"src/**/*.ts\" -c \"npm run dev-restart\" --initial",
-    "dev-restart": "npm run dev-kill; npm run dev-start;",
-    "dev-kill": "pkill -f ./src/program.ts",
-    "dev-start": "ts-node --files src/program",
+    "dev-watch": "ts-node-dev --poll --transpile-only --ignore-watch node_modules --files src/program.ts",
+    "old-dev-watch": "chokidar \"src/**/*.ts\" -c \"npm run dev-restart\" --initial",
+    "old-dev-restart": "npm run dev-kill; npm run dev-start;",
+    "old-dev-kill": "pkill -f ./src/program.ts",
+    "old-dev-start": "ts-node --files src/program",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -23,6 +24,7 @@
     "@types/http-proxy": "^1.17.8",
     "@types/node": "^17.0.13",
     "chokidar-cli": "^3.0.0",
-    "ts-node": "^10.4.0"
+    "ts-node": "^10.4.0",
+    "ts-node-dev": "^1.1.8"
   }
 }
